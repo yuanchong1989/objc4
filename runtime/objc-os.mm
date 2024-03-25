@@ -91,7 +91,7 @@ static header_info * addHeader(const headerType *mhdr, const char *path,
         // Verify image_info
         size_t info_size = 0;
         const objc_image_info *image_info = _getObjcImageInfo(mhdr, dyldObjCInfo, &info_size);
-        ASSERT(image_info == hi->info());
+//        ASSERT(image_info == hi->info());
 #endif
     }
     else 
@@ -457,14 +457,14 @@ map_images_nolock(unsigned mhCount, const struct _dyld_objc_notify_mapped_info i
         // Disable +initialize fork safety if the app has a
         //   __DATA,__objc_fork_ok section.
 
-        if (!dyld_program_sdk_at_least(dyld_platform_version_macOS_10_13)) {
-            DisableInitializeForkSafety = On;
-            if (PrintInitializing) {
-                _objc_inform("INITIALIZE: disabling +initialize fork "
-                             "safety enforcement because the app is "
-                             "too old.)");
-            }
-        }
+//        if (!dyld_program_sdk_at_least(dyld_platform_version_macOS_10_13)) {
+//            DisableInitializeForkSafety = On;
+//            if (PrintInitializing) {
+//                _objc_inform("INITIALIZE: disabling +initialize fork "
+//                             "safety enforcement because the app is "
+//                             "too old.)");
+//            }
+//        }
 
         for (uint32_t i = 0; i < hCount; i++) {
             auto hi = mappedInfos[i].hi;

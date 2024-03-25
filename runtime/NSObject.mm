@@ -43,12 +43,12 @@
 #include <sys/mman.h>
 #include <execinfo.h>
 
-#include <os/feature_private.h>
+//#include <os/feature_private.h>
 
 extern "C" {
-#include <os/reason_private.h>
-#include <os/variant_private.h>
-#include <os/log_simple_private.h>
+//#include <os/reason_private.h>
+//#include <os/variant_private.h>
+//#include <os/log_simple_private.h>
 }
 #endif
 
@@ -712,18 +712,18 @@ private:
     void checkTooMuchAutorelease()
     {
 #if !TARGET_OS_EXCLAVEKIT
-        int newDepth = depth+1;
-        if (newDepth == objc::PageCountWarning && numFaults < MAX_FAULTS) {
-            bool objcModeNoFaults = DisableFaults || getpid() == 1 || is_root_ramdisk() || !os_variant_has_internal_diagnostics("com.apple.obj-c");
-            if (!objcModeNoFaults) {
-                os_fault_with_payload(OS_REASON_LIBSYSTEM,
-                                      OS_REASON_LIBSYSTEM_CODE_FAULT,
-                                      NULL, 0, "Large Autorelease Pool", 0);
-            } else {
-                os_log_simple("Large Autorelease Pool");
-            }
-            numFaults++;
-        }
+//        int newDepth = depth+1;
+//        if (newDepth == objc::PageCountWarning && numFaults < MAX_FAULTS) {
+//            bool objcModeNoFaults = DisableFaults || getpid() == 1 || is_root_ramdisk() || !os_variant_has_internal_diagnostics("com.apple.obj-c");
+//            if (!objcModeNoFaults) {
+//                os_fault_with_payload(OS_REASON_LIBSYSTEM,
+//                                      OS_REASON_LIBSYSTEM_CODE_FAULT,
+//                                      NULL, 0, "Large Autorelease Pool", 0);
+//            } else {
+//                os_log_simple("Large Autorelease Pool");
+//            }
+//            numFaults++;
+//        }
 #endif
     }
 
@@ -1194,8 +1194,7 @@ public:
 #if TARGET_OS_EXCLAVEKIT
         bool willTerminate = true;
 #else
-        bool willTerminate = (DebugPoolAllocation == Fatal
-                              || sdkIsAtLeast(10_12, 10_0, 10_0, 3_0, 2_0));
+        bool willTerminate = (DebugPoolAllocation == Fatal);
 #endif
 
         if (!complained) {
